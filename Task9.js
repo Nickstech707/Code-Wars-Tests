@@ -1,16 +1,21 @@
 function solution(A, D) {
+  // Constants
   const monthlyFee = 5;
   const numMonths = 12;
   const paymentsThreshold = 100;
-  const paymentsPerMonth = new Array(numMonths).fill(0);
+
+  // Initialize variables
   let totalIncome = 0;
   let totalExpenditure = 0;
+  const paymentsPerMonth = new Array(numMonths).fill(0);
 
+  // Iterate over the arrays A and D
   for (let i = 0; i < A.length; i++) {
     const amount = A[i];
     const date = new Date(D[i]);
     const month = date.getMonth();
 
+    // Update total income or total expenditure based on the amount
     if (amount >= 0) {
       totalIncome += amount;
     } else {
@@ -19,8 +24,10 @@ function solution(A, D) {
     }
   }
 
+  // Calculate the total monthly fee
   let totalFee = monthlyFee * numMonths;
 
+  // Adjust the total fee based on the number of payments and expenditure
   for (let i = 0; i < numMonths; i++) {
     if (paymentsPerMonth[i] >= 3 && totalExpenditure - paymentsThreshold >= 0) {
       totalFee -= monthlyFee;
@@ -28,8 +35,10 @@ function solution(A, D) {
     }
   }
 
+  // Calculate the final balance
   const finalBalance = totalIncome - totalExpenditure - totalFee;
 
+  // Return the final balance
   return finalBalance;
 }
 
